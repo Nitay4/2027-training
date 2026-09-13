@@ -1,12 +1,6 @@
 package frc.robot;
 
-import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.hardware.TalonFX;
-import edu.wpi.first.units.measure.Angle;
-import edu.wpi.first.units.measure.Current;
-import edu.wpi.first.units.measure.Voltage;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
-import frc.robot.hardware.phoenix6.Phoenix6DeviceID;
 import org.littletonrobotics.junction.Logger;
 
 public class TalMotorControilMission {
@@ -33,11 +27,11 @@ public class TalMotorControilMission {
 	}
 
 	public double getPosition() {
-        return this.motor.getPosition().getValueAsDouble();
+		return this.motor.getPosition().getValueAsDouble();
 	}
 
 	public double getSpeed() {
-        return this.motor.get();
+		return this.motor.get();
 	}
 
 	public double getVoltage() {
@@ -45,16 +39,15 @@ public class TalMotorControilMission {
 	}
 
 	public double getCurrent() {
-
-        return this.motor.getMotorStallCurrent().getValueAsDouble();
+		return this.motor.getMotorStallCurrent().getValueAsDouble();
 	}
-    public void logUpdates() {
-        Logger.recordOutput("Position",this.getPosition());
-        Logger.recordOutput("Speed",this.getSpeed());
-        Logger.recordOutput("Voltage",this.getVoltage());
-        Logger.recordOutput("Current",this.getCurrent());
-    }
 
+	public void logUpdates() {
+		Logger.recordOutput("Position", this.getPosition());
+		Logger.recordOutput("Speed", this.getSpeed());
+		Logger.recordOutput("Voltage", this.getVoltage());
+		Logger.recordOutput("Current", this.getCurrent());
+	}
 
 
 }

@@ -109,7 +109,7 @@ public class Robot {
 		getLimelights().forEach(limelight -> limelight.getIndependentRobotPose().ifPresent(poseEstimator::updateVision));
 
 		poseEstimator.log();
-        this.motor.logUpdates();
+		this.motor.logUpdates();
 
 		BatteryUtil.logStatus();
 		BusChain.logChainsStatuses();
