@@ -1,5 +1,7 @@
 package frc.robot;
 
+import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
+import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.hardware.TalonFX;
 import org.littletonrobotics.junction.Logger;
 
@@ -13,11 +15,11 @@ public class TalMotorControilMission {
 		this.motor = new TalonFX(deviceId);
 		this.deviceId = deviceId;
 		this.initialPos = this.getPosition();
-//		TalonFXConfigurator configurator = this.motor.getConfigurator();
-//		TalonFXConfiguration configs = new TalonFXConfiguration();
-//		configs.CurrentLimits.StatorCurrentLimit = 120;
-//		configs.CurrentLimits.StatorCurrentLimitEnable = true;
-//		configurator.apply(configs);
+		TalonFXConfigurator configurator = this.motor.getConfigurator();
+		SoftwareLimitSwitchConfigs configs = new SoftwareLimitSwitchConfigs();
+		configs.withForwardSoftLimitEnable(true);
+		configs.withForwardSoftLimitThreshold(5);
+		configurator.apply(configs);
 	}
 
 	public void MoveForwardHalfPower() {
