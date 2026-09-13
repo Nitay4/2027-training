@@ -40,6 +40,7 @@ public class Robot {
 	private final Swerve swerve;
 	private final IPoseEstimator poseEstimator;
 	private final List<Limelight> limelights;
+	private final TalMotorControilMission motor;
 
 	public Robot() {
 		BatteryUtil.scheduleLimiter();
@@ -61,6 +62,8 @@ public class Robot {
 			swerve.getIMUAccelerationG(),
 			swerve.getIMUAbsoluteYaw().getTimestamp()
 		);
+
+		motor = new TalMotorControilMission(10);
 
 		this.limelights = List.of();
 		limelights.forEach(
@@ -126,6 +129,10 @@ public class Robot {
 
 	public PathPlannerAutoWrapper getAutonomousCommand() {
 		return new PathPlannerAutoWrapper();
+	}
+
+	public TalMotorControilMission getMotor() {
+		return motor;
 	}
 
 	private void configureBrakeStateChooser() {
