@@ -5,13 +5,19 @@ import org.littletonrobotics.junction.Logger;
 
 public class TalMotorControilMission {
 
-	private String logpath;
 	private TalonFX motor;
 	private int deviceId;
+	private double initialPos;
 
 	public TalMotorControilMission(int deviceId) {
 		this.motor = new TalonFX(deviceId);
 		this.deviceId = deviceId;
+		this.initialPos = this.getPosition();
+//		TalonFXConfigurator configurator = this.motor.getConfigurator();
+//		TalonFXConfiguration configs = new TalonFXConfiguration();
+//		configs.CurrentLimits.StatorCurrentLimit = 120;
+//		configs.CurrentLimits.StatorCurrentLimitEnable = true;
+//		configurator.apply(configs);
 	}
 
 	public void MoveForwardHalfPower() {
@@ -47,6 +53,17 @@ public class TalMotorControilMission {
 		Logger.recordOutput("Speed", this.getSpeed());
 		Logger.recordOutput("Voltage", this.getVoltage());
 		Logger.recordOutput("Current", this.getCurrent());
+		Logger.recordOutput("Connected", this.motor.isConnected());
+	}
+
+	public void periodicMotorFunctions() {
+		if (!canMoveForward()) {
+			this.stopMotor();
+		}
+	}
+
+	public boolean canMoveForward() {
+		return !(this.getPosition() - this.initialPos > 180.0 * 5.0);
 	}
 
 

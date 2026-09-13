@@ -110,6 +110,7 @@ public class Robot {
 
 		poseEstimator.log();
 		this.motor.logUpdates();
+		this.motor.periodicMotorFunctions();
 
 		BatteryUtil.logStatus();
 		BusChain.logChainsStatuses();
