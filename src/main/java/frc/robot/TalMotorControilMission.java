@@ -12,44 +12,49 @@ import org.littletonrobotics.junction.Logger;
 public class TalMotorControilMission {
 
 	private String logpath;
-	private TalonFX talonMotor;
+	private TalonFX motor;
 	private int deviceId;
 
 	public TalMotorControilMission(int deviceId) {
-		String logPath = "forLogPath";
-		Phoenix6DeviceID deviceID = new Phoenix6DeviceID(1);
-		SysIdRoutine.Config config = new SysIdRoutine.Config();
-		this.talonMotor = new TalonFX(deviceId);
+		this.motor = new TalonFX(deviceId);
 		this.deviceId = deviceId;
 	}
 
 	public void MoveForwardHalfPower() {
-		this.talonMotor.set(0.5);
+		this.motor.set(0.5);
 	}
 
 	public void MoveForwardTenthPower() {
-		this.talonMotor.set(0.1);
+		this.motor.set(0.1);
 	}
 
 	public void stopMotor() {
-		this.talonMotor.stopMotor();
+		this.motor.stopMotor();
 	}
 
-	public StatusSignal<Angle> getPosition(TalonFX motor) {
-		return motor.getPosition();
+	public double getPosition() {
+        return this.motor.getPosition().getValueAsDouble();
 	}
 
-	public double getSpeed(TalonFX motor) {
-		return motor.get();
+	public double getSpeed() {
+        return this.motor.get();
 	}
 
-	public StatusSignal<Voltage> getVoltage(TalonFX motor) {
-		return motor.getMotorVoltage();
+	public double getVoltage() {
+		return this.motor.getMotorVoltage().getValueAsDouble();
 	}
 
-	public StatusSignal<Current> getCurrent(TalonFX motor) {
-		return motor.getMotorStallCurrent();
+	public double getCurrent() {
+
+        return this.motor.getMotorStallCurrent().getValueAsDouble();
 	}
+    public void logUpdates() {
+        Logger.recordOutput("Position",this.getPosition());
+        Logger.recordOutput("Speed",this.getSpeed());
+        Logger.recordOutput("Voltage",this.getVoltage());
+        Logger.recordOutput("Current",this.getCurrent());
+    }
+
 
 
 }
